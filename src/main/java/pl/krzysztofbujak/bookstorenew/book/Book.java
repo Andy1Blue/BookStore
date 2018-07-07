@@ -13,7 +13,7 @@ import java.util.Set;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "bookstorenew_book")
+@Table(name = "book")
 public class Book {
 
     @Id
@@ -22,9 +22,18 @@ public class Book {
     private String isbn;
     private String title;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinTable(name = "books_authors", joinColumns = {@JoinColumn(name = "book_id")}, inverseJoinColumns = {@JoinColumn(name = "author_id")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "books_authors",
+            joinColumns = {@JoinColumn(name = "book_id")},
+            inverseJoinColumns = {@JoinColumn(name = "author_id")})
     private Set<Author> authors;
     private double price;
+
+    public Book(String isdn, String title, Set<Author> authors, double price){
+        this.isbn = isdn;
+        this.title = title;
+        this.authors = authors;
+        this.price = price;
+    }
 
 }

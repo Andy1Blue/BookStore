@@ -25,7 +25,12 @@ public class Author {
     private String lastname;
 
 //    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "authors")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "authors")
     private Set<Book> books = new HashSet<>();
+
+    public Author(String name, String lastName){
+        this.name=name;
+        this.lastname = lastName;
+    }
 
 }
