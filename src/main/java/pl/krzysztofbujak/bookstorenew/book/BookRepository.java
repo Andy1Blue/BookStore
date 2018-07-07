@@ -15,6 +15,7 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
     String FIND_BY_ISBN = "select * from book where isbn = ?1";
     String UPDATE_BOOK_BY_PRICE = "update book SET price = ?2 where isbn = ?1";
+    String FIND_BY_BOOK_TITLE = "select * from book where title like ?1%";
 
     @Async
     @Query(value = FIND_BY_ISBN, nativeQuery = true)
@@ -24,4 +25,7 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
     @Query(value = UPDATE_BOOK_BY_PRICE, nativeQuery = true)
     Book updatePrice(String isbn, double price);
 
+    @Async
+    @Query(value = FIND_BY_BOOK_TITLE, nativeQuery = true)
+    List<Book> findByTitle(String title);
 }

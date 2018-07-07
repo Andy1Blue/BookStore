@@ -69,4 +69,18 @@ public class BookController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("books/{title}")
+    public Collection<BookDto> getBookByTitle(@PathVariable String title) {
+        List<Book> books = bookRepository.findByTitle(title);
+        BookMapper bookMapper = new BookMapper();
+        List<BookDto> bookDtos = new ArrayList<>();
+
+        for (Book b: books) {
+            BookDto bookDto = bookMapper.map(b);
+            bookDtos.add(bookDto);
+        }
+
+        return bookDtos;
+    }
+
 }
